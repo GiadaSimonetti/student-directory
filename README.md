@@ -1,29 +1,9 @@
-# Student Directory #
+# Studen Directory #
 
+The student directory script allows you to menage the list of students enrolled at Villains Academy.
 
-In this week we are aiming to get you ready with a lot of basic concepts and practices that will be the base for your further development as a web developer. Although they might look simple, it is really important that you grasp these concepts. We are going to build a simple terminal based student directory. Exciting, huh?
+## How to use ##
 
-Make sure that you go through the **knowledge pills (:pill:)** when you struggle.
-
-## Overview ##
-
-The goal of this tutorial is not only to show you the Ruby code that you'll need to write (that's the easy bit) but to show you the process of creating a project from scratch. Most importantly we'll explain what to do, in what order and why do it at all.
-
-The script will be invoked from the command-line and it will only use pure Ruby, that is, there will be no external libraries to use. It will have text-based interface that will not look particularly exciting but it's really important to understand how to build basic things before trying to create sophisticated websites.
-
-## Challenges ##
-
-1. [Setting up your environment](https://github.com/makersacademy/student-directory/blob/master/01_setting_up_environment.md)
-2. [Printing the list of students](https://github.com/makersacademy/student-directory/blob/master/02_printing_list_students.md)
-3. [Refactoring (cleaning the code)](https://github.com/makersacademy/student-directory/blob/master/03_refactoring.md)
-4. [Arrays](https://github.com/makersacademy/student-directory/blob/master/04_arrays.md)
-5. [Methods](https://github.com/makersacademy/student-directory/blob/master/05_methods.md)
-6. [Adding more information about the student](https://github.com/makersacademy/student-directory/blob/master/06_adding_more_info.md)
-7. [Asking for user input](https://github.com/makersacademy/student-directory/blob/master/07_asking_user_input.md "Asking for user input")
-8. [Exercises](https://github.com/makersacademy/student-directory/blob/master/08_exercises.md)
-9. [Adding an interactive menu](https://github.com/makersacademy/student-directory/blob/master/09_adding_interactive_menu.md)
-10. [More refactoring](https://github.com/makersacademy/student-directory/blob/master/10_more_refactoring.md)
-11. [Saving the data to a file](https://github.com/makersacademy/student-directory/blob/master/11_saving_data_to_file.md)
-12. [Loading the data from the file](https://github.com/makersacademy/student-directory/blob/master/12_loading_data_from_file.md)
-13. [Taking arguments from the command line](https://github.com/makersacademy/student-directory/blob/master/13_taking_arguments_command_line.md)
-14. [Extra exercises](https://github.com/makersacademy/student-directory/blob/master/14_more_exercises.md)
+```shell
+ruby directory.rb
+```
