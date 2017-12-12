@@ -15,18 +15,28 @@
 
 def input_students
   puts "Please enter the names of the students"
+  puts "Then enter the months of the cohorts"
   puts "To finish, just hit enter twice"
   # create an empty array
   students = []
   # get the first name
   name = gets.chomp
+  month = gets.chomp
   # while the name is not empty repeate this code
-  while !name.empty? do
+  while !name.empty? && !month.empty? do
     # add the student hash to the array
-    students << {name: name, cohort: :november, hobby: :murder, country_of_birth: :US}
-    puts "Now we have #{students.count} students"
-    # get another name from the user
-    name = gets.chomp
+    if month == "January" || month == "February" || month == "March" || month == "April" || month == "May"  || month == "June" || month == "July" || month == "August" || month == "September" || month == "October" || month == "November" || month == "December"
+      hash_students = Hash.new("Unknown")
+      hash_students = {name: name, cohort: month.to_sym}
+      students << hash_students
+      puts "Now we have #{students.count} students"
+      # get another name from the user
+      name = gets.chomp
+      month = gets.chomp
+    else
+      name = gets.chomp
+      month = gets.chomp
+    end
   end
   # return the array of students
   students
@@ -39,7 +49,7 @@ end
 
 def print(students)
   students.each do |student|
-    puts "#{student[:name]} (#{student[:cohort]} cohort), from #{student[:country_of_birth]}, hobby: #{student[:hobby]} "
+    puts "#{student[:name]} (#{student[:cohort]} cohort)"
   end
 end
 
