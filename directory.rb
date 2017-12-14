@@ -24,9 +24,9 @@ def process(selection)
   when "9"
     exit # this will cause the program to terminate
   when "3"
-    save_students
+    save_students_file
   when "4"
-    load_students
+    load_students_file
   else
     puts "I don't know what you meant, try again"
   end
@@ -68,7 +68,7 @@ def print_footer
   puts "Overall, we have #{@students.count} great students"
 end
 
-def save_students
+def save_students_file
   # open the file for writing
   file = File.open("students.csv", "w")
   # iterate over the array of students
@@ -78,7 +78,7 @@ def save_students
   file.close
 end
 
-def load_students(filename = "students.csv")
+def load_students_file(filename = "students.csv")
   file = File.open(filename, "r")
   file.readlines.each do |line|
   name, cohort = line.chomp.split(',')
@@ -87,11 +87,11 @@ def load_students(filename = "students.csv")
   file.close
 end
 
-def try_load_students
+def try_load_students_file
   filename = ARGV.first# first argument from the command line
   return if filename.nil? # get out of the method if it isn't given
   if File.exists?(filename) # if it exists
-    load_students(filename)
+    load_students_file(filename)
      puts "Loaded #{@students.count} from #{filename}"
   else # if it doesn't exist
     puts "Sorry, #{filename} doesn't exist."
@@ -99,5 +99,5 @@ def try_load_students
   end
 end
 
-try_load_students
+try_load_students_file
 interactive_menu
