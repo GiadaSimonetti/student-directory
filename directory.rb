@@ -24,13 +24,9 @@ def process(selection)
   when "9"
     exit # this will cause the program to terminate
   when "3"
-    puts "Choose the file"
-    file_name = gets.chomp
-    save_students(file_name)
+    save_students
   when "4"
-    puts "Choose the file"
-    file_name = gets.chomp
-    load_students(file_name)
+    load_students
   else
     puts "I don't know what you meant, try again"
   end
@@ -72,9 +68,9 @@ def print_footer
   puts "Overall, we have #{@students.count} great students"
 end
 
-def save_students(filename)
+def save_students
   # open the file for writing
-  file = File.open(filename, "w")
+  file = File.open("students.csv", "w")
   # iterate over the array of students
   @students.each do |student|
     student_data = [student[:name], student[:cohort]]
@@ -85,7 +81,7 @@ def save_students(filename)
   file.close
 end
 
-def load_students(filename)
+def load_students(filename = "students.csv")
   file = File.open(filename, "r")
   file.readlines.each do |line|
   name, cohort = line.chomp.split(',')
@@ -95,8 +91,8 @@ def load_students(filename)
 end
 
 def try_load_students
-  filename = ARGV.first# first argument from the command line
-  return if filename.nil? # get out of the method if it isn't given
+  filename = ARGV.first # first argument from the command line
+  load_students if filename.nil?
   if File.exists?(filename) # if it exists
     load_students(filename)
      puts "Loaded #{@students.count} from #{filename}"
