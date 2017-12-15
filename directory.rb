@@ -15,6 +15,7 @@ def interactive_menu
   end
 end
 
+
 def process(selection)
   case selection
   when "1"
@@ -32,6 +33,10 @@ def process(selection)
   end
 end
 
+def add_students(define_student)
+  @students << {name: define_student, cohort: :november}
+end
+
 def input_students
   puts "Please enter the names of the students"
   puts "To finish, just hit return twice"
@@ -40,7 +45,7 @@ def input_students
   # while the name is not empty, repeat this code
   while !name.empty? do
     # add the student hash to the array
-    @students << {name: name, cohort: :november}
+    add_students(name)
     puts "Now we have #{@students.count} students"
     # get another name from the user
     name = STDIN.gets.chomp
@@ -70,20 +75,24 @@ end
 
 def save_students
   # open the file for writing
-  File.open("students.csv", "w") do |file|
-    @students.each do |student|
-      file.puts "#{student[:name]}, #{student[:cohort]}"
-    end
+  file = File.open("students.csv", "w")
+  # iterate over the array of students
+  @students.each do |student|
+    student_data = [student[:name], student[:cohort]]
+    csv_line = student_data.join(",")
+    file.puts csv_line
+    # file.puts "#{student[:name]},#{student[:cohort]}"
   end
+  file.close
 end
 
 def load_students(filename = "students.csv")
-  File.open(filename, "r") do |file|
-    file.readlines.each do |line|
-      name, cohort = line.chomp.split(',')
-      @students << {name: name, cohort: cohort.to_sym}
-    end
+  file = File.open(filename, "r")
+  file.readlines.each do |line|
+  name, cohort = line.chomp.split(',')
+  add_students(name)
   end
+  file.close
 end
 
 def try_load_students
