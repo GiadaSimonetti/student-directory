@@ -15,7 +15,6 @@ def interactive_menu
   end
 end
 
-
 def process(selection)
   case selection
   when "1"
@@ -25,16 +24,16 @@ def process(selection)
   when "9"
     exit # this will cause the program to terminate
   when "3"
-    save_students
+    puts "Choose the file"
+    file_name = gets.chomp
+    save_students(file_name)
   when "4"
-    load_students
+    puts "Choose the file"
+    file_name = gets.chomp
+    load_students(file_name)
   else
     puts "I don't know what you meant, try again"
   end
-end
-
-def add_students(define_student)
-  @students << {name: define_student, cohort: :november}
 end
 
 def input_students
@@ -45,7 +44,7 @@ def input_students
   # while the name is not empty, repeat this code
   while !name.empty? do
     # add the student hash to the array
-    add_students(name)
+    @students << {name: name, cohort: :november}
     puts "Now we have #{@students.count} students"
     # get another name from the user
     name = STDIN.gets.chomp
@@ -73,9 +72,9 @@ def print_footer
   puts "Overall, we have #{@students.count} great students"
 end
 
-def save_students
+def save_students(filename)
   # open the file for writing
-  file = File.open("students.csv", "w")
+  file = File.open(filename, "w")
   # iterate over the array of students
   @students.each do |student|
     student_data = [student[:name], student[:cohort]]
@@ -86,11 +85,11 @@ def save_students
   file.close
 end
 
-def load_students(filename = "students.csv")
+def load_students(filename)
   file = File.open(filename, "r")
   file.readlines.each do |line|
   name, cohort = line.chomp.split(',')
-  add_students(name)
+    @students << {name: name, cohort: cohort.to_sym}
   end
   file.close
 end
