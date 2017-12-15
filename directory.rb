@@ -24,9 +24,9 @@ def process(selection)
   when "9"
     exit # this will cause the program to terminate
   when "3"
-    save_students_file
+    save_students
   when "4"
-    load_students_file
+    load_students
   else
     puts "I don't know what you meant, try again"
   end
@@ -68,30 +68,29 @@ def print_footer
   puts "Overall, we have #{@students.count} great students"
 end
 
-def save_students_file
+def save_students
   # open the file for writing
-  file = File.open("students.csv", "w")
-  # iterate over the array of students
-  @students.each do |student|
-    file.puts "#{student[:name]},#{student[:cohort]}"
+  File.open("students.csv", "w") do |file|
+    @students.each do |student|
+      file.puts "#{student[:name]}, #{student[:cohort]}"
+    end
   end
-  file.close
 end
 
-def load_students_file(filename = "students.csv")
-  file = File.open(filename, "r")
-  file.readlines.each do |line|
-  name, cohort = line.chomp.split(',')
-    @students << {name: name, cohort: cohort.to_sym}
+def load_students(filename = "students.csv")
+  File.open(filename, "r") do |file|
+    file.readlines.each do |line|
+      name, cohort = line.chomp.split(',')
+      @students << {name: name, cohort: cohort.to_sym}
+    end
   end
-  file.close
 end
 
-def try_load_students_file
+def try_load_students
   filename = ARGV.first# first argument from the command line
   return if filename.nil? # get out of the method if it isn't given
   if File.exists?(filename) # if it exists
-    load_students_file(filename)
+    load_students(filename)
      puts "Loaded #{@students.count} from #{filename}"
   else # if it doesn't exist
     puts "Sorry, #{filename} doesn't exist."
@@ -99,5 +98,5 @@ def try_load_students_file
   end
 end
 
-try_load_students_file
+try_load_students
 interactive_menu
