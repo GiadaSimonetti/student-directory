@@ -1,17 +1,18 @@
+@months = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"]
+
 def input_students
   puts "Please enter the names of the students"
   puts "Then enter the months of the cohorts"
   puts "To finish, just hit enter twice"
   # create an empty array
   students = []
-  months = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"]
   # get the first name
   name = gets.chomp
   cohort = gets.chomp
   # while the name is not empty repeate this code
   while !name.empty? do
     # add the student hash to the array
-    if !months.include? cohort
+    if !@months.include? cohort
       cohort = "unknown"
     end
     students << { name: name, cohort: cohort.to_sym }
@@ -29,8 +30,12 @@ def print_header
 end
 
 def print(students)
-  students.each do |student|
-    puts "#{student[:name]} (#{student[:cohort]} cohort)"
+  @months.each do |month|
+    students.each do |student|
+      if month.to_sym == student[:cohort]
+        puts "#{student[:name]} (#{student[:cohort]} cohort)"
+      end
+    end
   end
 end
 
