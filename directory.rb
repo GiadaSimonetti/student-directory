@@ -1,3 +1,4 @@
+require "csv"
 @students = [] # an empty array accessible to all methods
 
 def print_menu
@@ -69,30 +70,22 @@ def print_footer
 end
 
 def save_students
-  # open the file for writing
-  file = File.open("students.csv", "w")
-  # iterate over the array of students
-  @students.each do |student|
-    student_data = [student[:name], student[:cohort]]
-    csv_line = student_data.join(",")
-    file.puts csv_line
-    # file.puts "#{student[:name]},#{student[:cohort]}"
+  CSV.open("students.csv", "wb") do |csv|
+    @students.each do |student|
+      csv << [student[:name], student[:cohort]]
+    end
   end
-  file.close
 end
 
 def load_students(filename = "students.csv")
-  file = File.open(filename, "r")
-  file.readlines.each do |line|
-  name, cohort = line.chomp.split(',')
-    @students << {name: name, cohort: cohort.to_sym}
-  end
-  file.close
+    CSV.foreach(filename) do |row|
+      @students << { name: row[0], cohort: row[1].to_sym }
+    end
 end
 
 def try_load_students
   filename = ARGV.first # first argument from the command line
-  load_students if filename.nil?
+  return if filename.nil? # get out of the method if it isn't given
   if File.exists?(filename) # if it exists
     load_students(filename)
      puts "Loaded #{@students.count} from #{filename}"
