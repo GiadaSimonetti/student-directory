@@ -1,42 +1,23 @@
-#let's put all students into an array
-# students = [
-#   {name: "Dr Hannibal Lecter", cohort: :november},
-#   {name: "Darth Vader", cohort: :november},
-#   {name: "Nurse Ratched", cohort: :november},
-#   {name: "Michael Corleone", cohort: :november},
-#   {name: "Alex Delarge", cohort: :november},
-#   {name: "The Wicked Witch of West", cohort: :november},
-#   {name: "Terminator", cohort: :november},
-#   {name: "Freddy Krueger", cohort: :november},
-#   {name: "The Joker", cohort: :november},
-#   {name: "Joffrey Baratheon", cohort: :november},
-#   {name: "Norman Bates", cohort: :november}
-# ]
-
 def input_students
   puts "Please enter the names of the students"
   puts "Then enter the months of the cohorts"
   puts "To finish, just hit enter twice"
   # create an empty array
   students = []
+  months = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"]
   # get the first name
   name = gets.chomp
-  month = gets.chomp
+  cohort = gets.chomp
   # while the name is not empty repeate this code
-  while !name.empty? && !month.empty? do
+  while !name.empty? do
     # add the student hash to the array
-    if month == "January" || month == "February" || month == "March" || month == "April" || month == "May"  || month == "June" || month == "July" || month == "August" || month == "September" || month == "October" || month == "November" || month == "December"
-      hash_students = Hash.new("Unknown")
-      hash_students = {name: name, cohort: month.to_sym}
-      students << hash_students
-      puts "Now we have #{students.count} students"
-      # get another name from the user
-      name = gets.chomp
-      month = gets.chomp
-    else
-      name = gets.chomp
-      month = gets.chomp
+    if !months.include? cohort
+      cohort = "unknown"
     end
+    students << { name: name, cohort: cohort.to_sym }
+    puts "Now we have #{students.count} students"
+    name = gets.chomp
+    cohort = gets.chomp
   end
   # return the array of students
   students
