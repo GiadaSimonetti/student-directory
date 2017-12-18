@@ -20,14 +20,23 @@ def process(selection)
   case selection
   when "1"
     input_students
+    puts "Ok, done!"
   when "2"
     show_students
+    puts "Here are the students"
   when "9"
+    puts "Bye!"
     exit # this will cause the program to terminate
   when "3"
-    save_students
+    puts "Choose the file"
+    file_name = gets.chomp
+    save_students(file_name)
+    puts "File saved!"
   when "4"
-    load_students
+    puts "Choose the file"
+    file_name = gets.chomp
+    load_students(file_name)
+    puts "File loaded!"
   else
     puts "I don't know what you meant, try again"
   end
@@ -69,15 +78,15 @@ def print_footer
   puts "Overall, we have #{@students.count} great students"
 end
 
-def save_students
-  CSV.open("students.csv", "wb") do |csv|
+def save_students(filename)
+  CSV.open(filename, "wb") do |csv|
     @students.each do |student|
       csv << [student[:name], student[:cohort]]
     end
   end
 end
 
-def load_students(filename = "students.csv")
+def load_students(filename)
     CSV.foreach(filename) do |row|
       @students << { name: row[0], cohort: row[1].to_sym }
     end
@@ -85,7 +94,7 @@ end
 
 def try_load_students
   filename = ARGV.first # first argument from the command line
-  return if filename.nil? # get out of the method if it isn't given
+  return load_students("students.csv") if filename.nil? # get out of the method if it isn't given
   if File.exists?(filename) # if it exists
     load_students(filename)
      puts "Loaded #{@students.count} from #{filename}"
