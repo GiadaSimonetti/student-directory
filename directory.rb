@@ -7,18 +7,22 @@ def input_students
   # create an empty array
   students = []
   # get the first name
-  name = gets.chomp
-  cohort = gets.chomp
+  name = gets.strip
+  cohort = gets.strip
   # while the name is not empty repeate this code
   while !name.empty? do
     # add the student hash to the array
     if !@months.include? cohort
       cohort = "unknown"
     end
-    students << { name: name, cohort: cohort.to_sym }
-    puts "Now we have #{students.count} students"
-    name = gets.chomp
-    cohort = gets.chomp
+    students << { name: name, cohort: cohort.to_sym, hobby: :murder, country_of_birth: :US}
+    if students.count == 1
+      puts "Now we have #{students.count} student"
+    else
+      puts "Now we have #{students.count} students"
+    end
+    name = gets.strip
+    cohort = gets.strip
   end
   # return the array of students
   students
@@ -30,12 +34,17 @@ def print_header
 end
 
 def print(students)
-  @months.each do |month|
-    students.each do |student|
+  if students.empty?
+    puts "Nothing in here"
+  else @months.each do |month|
+      students.each_with_index do |student, index|
       if month.to_sym == student[:cohort]
-        puts "#{student[:name]} (#{student[:cohort]} cohort)"
-      end
-    end
+        student.each_value do |name|
+         puts "#{index + 1}. #{student[:name]} (#{student[:cohort]} cohort), from #{student[:country_of_birth]}, hobby: #{student[:hobby]}".center(150, " ")  if name[0] == "M" && student[:name].length < 12
+         end
+       end
+     end
+   end
   end
 end
 
